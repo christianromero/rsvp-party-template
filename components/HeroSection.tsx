@@ -108,13 +108,13 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
         </p>
 
         {/* ── Tarjeta de invitación ──────────────────────────────────────── */}
-        <div className="relative w-full max-w-[260px] md:max-w-[300px] mx-auto mb-8 animate-float">
+        <div className="relative w-full max-w-[320px] md:max-w-[420px] mx-auto mb-8 animate-float">
           <div className="absolute inset-0 rounded-3xl bg-gp-orange/20 blur-2xl scale-110" />
           <div className="relative rounded-3xl overflow-hidden glow-orange shadow-2xl border border-gp-orange/30">
             <Image
               src={EVENT_CONFIG.invitationImage}
               alt={`Tarjeta de invitación — ${EVENT_CONFIG.name}`}
-              width={300}
+              width={420}
               height={430}
               className="w-full h-auto"
               priority
