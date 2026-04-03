@@ -1,11 +1,13 @@
 import { EVENT_CONFIG, getMapsUrl, getMapsEmbedUrl } from "@/lib/event-config";
+import ParticleField from "./ParticleField";
 
 export default function MapSection() {
   return (
-    <section className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark">
+    <section className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark cosmic-section">
       <div className="absolute inset-0 bg-gradient-to-b from-gp-blue-bg to-gp-blue-dark" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                       w-[500px] h-[300px] bg-gp-blue/10 rounded-full blur-[80px] pointer-events-none" />
+      <ParticleField count={12} />
 
       <div className="relative z-10 max-w-2xl mx-auto">
         <div className="text-center mb-8">
@@ -26,6 +28,9 @@ export default function MapSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
+              style={{
+                filter: "invert(93%) hue-rotate(177deg) brightness(0.88) saturate(1.4) contrast(0.92)",
+              }}
             />
           </div>
 
@@ -52,11 +57,10 @@ export default function MapSection() {
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
             { icon: "🚇", title: "Subte",      text: "Línea A — Estación Primera Junta (5 min caminando)" },
             { icon: "🚌", title: "Colectivos", text: "Líneas 1, 26, 55, 56 y más por Av. Rivadavia" },
-            { icon: "🚗", title: "Auto",       text: "Estacionamiento en la zona. Google Maps te guía." },
           ].map(({ icon, title, text }) => (
             <div key={title}
                  className="glass-card rounded-2xl p-4 border border-gp-blue/15 text-center">

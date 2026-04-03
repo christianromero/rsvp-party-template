@@ -58,8 +58,8 @@ export function getMapsUrl(): string {
   return `https://maps.google.com/?q=${EVENT_CONFIG.mapQuery}`;
 }
 
-/** URL del iframe embed de Google Maps */
+/** URL del iframe embed de Google Maps — muestra el pin del lugar */
 export function getMapsEmbedUrl(): string {
-  // Embed estático — no requiere API key
-  return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.9!2d-58.451!3d-34.618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc97b46a3b019%3A0x92bbc6b2d09e7b73!2s${encodeURIComponent(EVENT_CONFIG.location)}!5e0!3m2!1ses!2sar!4v1712000000000`;
+  // Formato ?q= sin API key: Google Maps muestra el marker automáticamente
+  return `https://maps.google.com/maps?q=${EVENT_CONFIG.mapQuery}&output=embed&hl=es&z=16`;
 }

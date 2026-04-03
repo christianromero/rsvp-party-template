@@ -1,16 +1,18 @@
 import RSVPForm from "./RSVPForm";
 import { EVENT_CONFIG } from "@/lib/event-config";
+import ParticleField from "./ParticleField";
 
 export default function RSVPSection() {
   return (
     <section
       id="rsvp-section"
-      className="py-20 px-4 relative overflow-hidden bg-gp-blue-bg"
+      className="py-20 px-4 relative overflow-hidden bg-gp-blue-bg cosmic-section"
     >
       <div className="absolute top-0 right-0 w-[400px] h-[400px]
                       bg-gp-orange/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[350px] h-[350px]
                       bg-gp-blue/15 rounded-full blur-[80px] pointer-events-none" />
+      <ParticleField count={16} />
 
       <div className="relative z-10 max-w-lg mx-auto">
         <div className="text-center mb-8">

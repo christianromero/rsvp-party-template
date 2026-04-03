@@ -23,9 +23,15 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
     document.getElementById("rsvp-section")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Separar el nombre en dos partes si tiene "&"
-  const nameParts = EVENT_CONFIG.name.split("&").map((s) => s.trim());
-  const hasTwo = nameParts.length === 2;
+  // Separar "Cumple Carme & Inne" → prefix="Cumple", partyName="Carme & Inne"
+  const ampIndex = EVENT_CONFIG.name.indexOf("&");
+  const hasAmp = ampIndex !== -1;
+  const firstChunk = hasAmp ? EVENT_CONFIG.name.slice(0, ampIndex).trim() : EVENT_CONFIG.name;
+  const secondChunk = hasAmp ? EVENT_CONFIG.name.slice(ampIndex + 1).trim() : null;
+  const firstWords = firstChunk.split(" ");
+  const prefix    = firstWords.length > 1 ? firstWords[0] : null;          // "Cumple"
+  const name1     = firstWords.length > 1 ? firstWords.slice(1).join(" ") : firstChunk; // "Carme"
+  const partyName = secondChunk ? `${name1} & ${secondChunk}` : name1;    // "Carme & Inne"
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden hero-bg stripe-bg">
@@ -61,33 +67,27 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
       <div className="relative z-10 flex flex-col items-center text-center px-4 pt-16 pb-12 w-full max-w-2xl mx-auto">
 
         {/* Chip superior */}
-        <div className="flex items-center gap-2 mb-6 px-4 py-2 rounded-full glass-card border border-gp-blue/40">
+        <div className="flex items-center gap-2 mb-6 px-5 py-2 rounded-full glass-card border border-gp-blue/40">
           <span className="text-xl">🎊</span>
           <span className="font-nunito text-sm font-bold text-gp-text-dim uppercase tracking-[0.25em]">
-            Estás invitado
+            Invitación
           </span>
           <span className="text-xl">🎊</span>
         </div>
 
-        {/* ── Título: si tiene & lo separa en dos líneas, si no lo muestra completo ── */}
-        <h1 className="font-fredoka leading-none mb-1">
-          {hasTwo ? (
-            <>
-              <span className="block text-[4rem] md:text-[6rem] gradient-text drop-shadow-lg">
-                {nameParts[0]}
-              </span>
-              <span className="block text-2xl md:text-3xl text-gp-text-dim font-fredoka my-1">
-                &amp;
-              </span>
-              <span className="block text-[4rem] md:text-[6rem] gradient-text drop-shadow-lg">
-                {nameParts[1]}
-              </span>
-            </>
-          ) : (
-            <span className="block text-[3.5rem] md:text-[5rem] gradient-text drop-shadow-lg">
-              {EVENT_CONFIG.name}
+        {/* ── Título ────────────────────────────────────────────────────────── */}
+        <h1 className="leading-none mb-1 text-center">
+          {prefix && (
+            <span className="block font-nunito text-base md:text-lg text-gp-text-dim uppercase tracking-[0.35em] mb-2">
+              {prefix}
             </span>
           )}
+          <span
+            className="block gradient-text drop-shadow-lg font-pacifico"
+            style={{ fontSize: "clamp(2.6rem, 12vw, 5.8rem)" }}
+          >
+            {partyName}
+          </span>
         </h1>
 
         <p className="font-nunito text-lg md:text-xl text-white/85 mt-2 mb-1">

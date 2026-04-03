@@ -12,6 +12,20 @@ export const metadata: Metadata = {
     description:
       "Sábado 25 de abril a las 15 hs — Gravity Park, Av. Gaona 1837, Caballito. ¡Confirmá tu asistencia!",
     type: "website",
+    images: [
+      {
+        url: "/assets/invitation-card.jpg",
+        width: 600,
+        height: 860,
+        alt: "Tarjeta de invitación — Cumple Carme & Inne en Gravity Park",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "¡Cumple Carme & Inne! 🎉",
+    description: "Sábado 25 de abril a las 15 hs — Gravity Park, Caballito.",
+    images: ["/assets/invitation-card.jpg"],
   },
   // Evitar que buscadores indexen la página privada de invitados
   robots: "noindex, nofollow",
@@ -36,7 +50,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap"
           rel="stylesheet"
         />
       </head>
