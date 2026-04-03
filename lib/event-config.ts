@@ -54,7 +54,9 @@ export const EVENT_CONFIG = {
 
 /** Texto compacto para subtítulos: "Sábado 25 de abril · 14:45 a 16:20 hs · Gravity Park, Caballito" */
 export function getEventSubtitle(): string {
-  return `${EVENT_CONFIG.dateFriendly} · ${EVENT_CONFIG.timeFriendly} · ${EVENT_CONFIG.location}, ${EVENT_CONFIG.address.split(",").pop()?.trim() ?? EVENT_CONFIG.address}`;
+  // Usamos startTimeFriendly + endTimeFriendly para evitar depender de NEXT_PUBLIC_EVENT_TIME_FRIENDLY
+  const timeRange = `${EVENT_CONFIG.startTimeFriendly} a ${EVENT_CONFIG.endTimeFriendly}`;
+  return `${EVENT_CONFIG.dateFriendly} · ${timeRange} · ${EVENT_CONFIG.location}, ${EVENT_CONFIG.address.split(",").pop()?.trim() ?? EVENT_CONFIG.address}`;
 }
 
 /** URL para "Abrir en Google Maps" */
