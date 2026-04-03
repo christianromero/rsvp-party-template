@@ -2,16 +2,19 @@
 
 import Image from "next/image";
 import CounterBadge from "./CounterBadge";
+import ShootingStars from "./ShootingStars";
+import ParticleField from "./ParticleField";
 import { EVENT_CONFIG, getEventSubtitle } from "@/lib/event-config";
 
 // ── Estrellas decorativas en el fondo ────────────────────────────────────────
-const STARS = Array.from({ length: 28 }, (_, i) => ({
+const STARS = Array.from({ length: 48 }, (_, i) => ({
   id: i,
-  size:  2 + Math.floor(((i * 7) % 4)),
+  size:  1.5 + Math.floor(((i * 7) % 4)),
   left:  ((i * 37 + 11) % 95) + 1,
-  top:   ((i * 53 + 7)  % 88) + 1,
-  delay: (i * 0.3) % 3,
-  dur:   1.5 + (i % 3),
+  top:   ((i * 53 + 7)  % 95) + 1,
+  delay: (i * 0.25) % 4,
+  dur:   1.2 + (i % 4) * 0.5,
+  color: i % 5 === 0 ? "#00C8FF" : i % 7 === 0 ? "#FF0B7A" : "#FFD700",
 }));
 
 interface HeroSectionProps {
@@ -36,6 +39,12 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden hero-bg stripe-bg">
 
+      {/* ── Estrellas fugaces ─────────────────────────────────────────────── */}
+      <ShootingStars />
+
+      {/* ── Partículas flotantes ──────────────────────────────────────────── */}
+      <ParticleField count={22} />
+
       {/* ── Orbes de luz ──────────────────────────────────────────────────── */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px]
                       bg-gp-blue/25 rounded-full blur-[100px] animate-orb"
@@ -51,12 +60,14 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
       {STARS.map((s) => (
         <div
           key={s.id}
-          className="absolute rounded-full bg-gp-gold pointer-events-none select-none"
+          className="absolute rounded-full pointer-events-none select-none"
           style={{
             width: s.size,
             height: s.size,
             left: `${s.left}%`,
             top: `${s.top}%`,
+            backgroundColor: s.color,
+            boxShadow: `0 0 ${s.size * 2}px ${s.color}`,
             animation: `twinkle ${s.dur}s ease-in-out infinite`,
             animationDelay: `${s.delay}s`,
           }}
@@ -70,18 +81,13 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
         <div className="flex items-center gap-2 mb-6 px-5 py-2 rounded-full glass-card border border-gp-blue/40">
           <span className="text-xl">🎊</span>
           <span className="font-nunito text-sm font-bold text-gp-text-dim uppercase tracking-[0.25em]">
-            Invitación
+            {prefix ? `Invitación ${prefix}` : "Invitación"}
           </span>
           <span className="text-xl">🎊</span>
         </div>
 
         {/* ── Título ────────────────────────────────────────────────────────── */}
         <h1 className="leading-none mb-1 text-center">
-          {prefix && (
-            <span className="block font-nunito text-base md:text-lg text-gp-text-dim uppercase tracking-[0.35em] mb-2">
-              {prefix}
-            </span>
-          )}
           <span
             className="block gradient-text drop-shadow-lg font-pacifico"
             style={{ fontSize: "clamp(2.6rem, 12vw, 5.8rem)" }}

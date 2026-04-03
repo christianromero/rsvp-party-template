@@ -1,6 +1,7 @@
 import RSVPForm from "./RSVPForm";
 import { EVENT_CONFIG } from "@/lib/event-config";
 import ParticleField from "./ParticleField";
+import ShootingStars from "./ShootingStars";
 
 export default function RSVPSection() {
   return (
@@ -12,7 +13,8 @@ export default function RSVPSection() {
                       bg-gp-orange/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[350px] h-[350px]
                       bg-gp-blue/15 rounded-full blur-[80px] pointer-events-none" />
-      <ParticleField count={16} />
+      <ShootingStars />
+      <ParticleField count={26} />
 
       <div className="relative z-10 max-w-lg mx-auto">
         <div className="text-center mb-8">

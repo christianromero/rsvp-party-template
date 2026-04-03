@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { EVENT_CONFIG } from "@/lib/event-config";
 import ParticleField from "./ParticleField";
+import ShootingStars from "./ShootingStars";
 
 // ── Fecha del evento desde la config ─────────────────────────────────────────
 // dateISO incluye el offset de timezone: "2026-04-25T15:00:00-03:00"
@@ -88,7 +89,8 @@ export default function CountdownSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-gp-blue-bg via-gp-blue-dark to-gp-blue-bg" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px]
                       bg-gp-blue/20 rounded-full blur-[80px]" />
-      <ParticleField count={14} />
+      <ShootingStars />
+      <ParticleField count={24} />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         <div className="section-divider mb-6" />
