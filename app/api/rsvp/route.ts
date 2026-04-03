@@ -88,10 +88,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Cualquier otro status es error
-    const bodyText = await response.text().catch(() => "");
-    console.error("Apps Script respondió con:", response.status, bodyText.substring(0, 200));
+    console.error("Apps Script respondió con status:", response.status);
     return NextResponse.json(
-      { error: "Error guardando la inscripción. Intentá de nuevo en unos minutos." },
+      { error: `Error guardando [status ${response.status}]. Intentá de nuevo.` },
       { status: 502 }
     );
 
