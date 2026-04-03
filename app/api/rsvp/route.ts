@@ -85,8 +85,9 @@ export async function POST(req: NextRequest) {
     if (!response.ok) {
       const bodyText = await response.text().catch(() => "");
       console.error("Apps Script respondió con:", response.status, bodyText.substring(0, 200));
+      // Retornar el status real para debugging
       return NextResponse.json(
-        { error: "Error guardando la inscripción. Intentá de nuevo en unos minutos." },
+        { error: `Error guardando [HTTP ${response.status}]: ${bodyText.substring(0, 100)}` },
         { status: 502 }
       );
     }
