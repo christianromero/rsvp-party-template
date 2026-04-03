@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Reset base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  /* Fondo cósmico oscuro que hace match con la tarjeta de invitación */
+  background-color: #060D22;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar estilo dark ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #060D22; }
+::-webkit-scrollbar-thumb { background: #FF5200; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #1B52E8; }
+
+/* ── Gradient texts ─────────────────────────────────────────────────────────── */
+.gradient-text {
+  /* Naranja-amarillo signature de Gravity Park */
+  background: linear-gradient(135deg, #FFE033 0%, #FF5200 60%, #FF0B7A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #00C8FF 0%, #1B52E8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #FFE033 0%, #FFD700 50%, #FF9500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glassmorphism card ─────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(13, 27, 62, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(27, 82, 232, 0.2);
+}
+
+.glass-card-orange {
+  background: rgba(13, 27, 62, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 82, 0, 0.25);
+}
+
+/* ── Glow effects ───────────────────────────────────────────────────────────── */
+.glow-orange {
+  box-shadow: 0 0 30px rgba(255, 82, 0, 0.45), 0 0 60px rgba(255, 82, 0, 0.2);
+}
+.glow-blue {
+  box-shadow: 0 0 30px rgba(27, 82, 232, 0.5), 0 0 60px rgba(27, 82, 232, 0.2);
+}
+.glow-gold {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.45), 0 0 60px rgba(255, 215, 0, 0.2);
+}
+.glow-green {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.45), 0 0 60px rgba(0, 255, 136, 0.2);
+}
+
+/* ── Botón CTA principal ────────────────────────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, #FF5200, #FF7A00);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 2.5s linear infinite;
+}
+.btn-primary:hover {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 8px 40px rgba(255, 82, 0, 0.7), 0 0 80px rgba(255, 82, 0, 0.25);
+}
+.btn-primary:active {
+  transform: scale(0.97) translateY(0);
+}
+
+/* ── Input fields ───────────────────────────────────────────────────────────── */
+.input-field {
+  background: rgba(27, 82, 232, 0.08);
+  border: 1.5px solid rgba(27, 82, 232, 0.3);
+  color: white;
+  transition: all 0.2s ease;
+}
+.input-field:focus {
+  outline: none;
+  background: rgba(27, 82, 232, 0.14);
+  border-color: #FF5200;
+  box-shadow: 0 0 0 3px rgba(255, 82, 0, 0.18);
+}
+.input-field::placeholder { color: #5A6A8A; }
+.input-field.error {
+  border-color: #FF4444;
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15);
+}
+
+/* ── Countdown digit ────────────────────────────────────────────────────────── */
+.countdown-digit {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 2ch;
+  text-align: center;
+}
+
+/* ── Divider decorativo ─────────────────────────────────────────────────────── */
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #FF5200, #1B52E8);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+/* ── Hero background cósmico ────────────────────────────────────────────────── */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(27,82,232,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(255,82,0,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(107,47,232,0.2) 0%, transparent 50%),
+    #060D22;
+}
+
+/* ── Stars decorativas ──────────────────────────────────────────────────────── */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #FFD700;
+  pointer-events: none;
+}
+
+/* ── Mapa responsive ────────────────────────────────────────────────────────── */
+.map-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.map-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* ── Spinner de carga ───────────────────────────────────────────────────────── */
+.spinner {
+  width: 22px; height: 22px;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ── Confetti animation ─────────────────────────────────────────────────────── */
+@keyframes confettiFall {
+  0%   { transform: translateY(-30px) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(540deg) scale(0.5); opacity: 0; }
+}
+.confetti-piece {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  animation: confettiFall linear forwards;
+}
+
+/* ── Animación de shimmer ────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Stripe de GP en el fondo ───────────────────────────────────────────────── */
+.stripe-bg {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 20px,
+    rgba(27,82,232,0.04) 20px,
+    rgba(27,82,232,0.04) 21px
+  );
+}
