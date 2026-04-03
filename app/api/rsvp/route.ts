@@ -64,27 +64,27 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Reenviar al Apps Script ───────────────────────────────────────────────
-    const APPS_SCRIPT_DEFAULT = "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7IhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
-    const appsScriptUrl = process.env.APPS_SCRIPT_URL ?? APPS_SCRIPT_DEFAULT;
-    if (!appsScriptUrl) {
-      console.error("APPS_SCRIPT_URL no configurado");
-      return NextResponse.json(
-        { error: "El sistema de inscripción no está configurado aún. Contactá a los organizadores." },
-        { status: 503 }
-      );
-    }
+    // URL fija del deployment activo (versión 4, 3 abr 2026)
+    // NOTA: si se cambia el deployment, actualizar esta URL
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7IhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
 
     const response = await fetch(appsScriptUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      redirect: "follow",
       // Timeout de 10 segundos
       signal: AbortSignal.timeout(10_000),
     });
 
-    // Apps Script a veces devuelve 302 (redirect) que fetch sigue automáticamente
-    if (!response.ok && response.status !== 302) {
-      console.error("Apps Script respondió con:", response.status);
+    // Apps Script puede devolver 302 (redirect) o respuesta directa.
+    // Con redirect:"follow", fetch sigue el redirect automáticamente.
+    // Si la respuesta final no es OK (ej: 403, 500), logeamos y retornamos error.
+    console.log("Apps Script status:", response.status, "ok:", response.ok, "url:", response.url);
+
+    if (!response.ok) {
+      const bodyText = await response.text().catch(() => "");
+      console.error("Apps Script respondió con:", response.status, bodyText.substring(0, 200));
       return NextResponse.json(
         { error: "Error guardando la inscripción. Intentá de nuevo en unos minutos." },
         { status: 502 }
