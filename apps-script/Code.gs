@@ -24,7 +24,7 @@ var CONFIG = {
   // Datos del evento (para los emails)
   EVENT_NAME:    "Carme & Inne",
   EVENT_DATE_STR: "Sábado 25 de abril de 2026",
-  EVENT_TIME:    "15:00 hs",
+  EVENT_TIME:    "14:45 a 16:20 hs",
   EVENT_ADDRESS: "Gravity Park · Av. Gaona 1837, Caballito",
 
   // Asunto del email recordatorio

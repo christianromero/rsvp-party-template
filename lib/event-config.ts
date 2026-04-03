@@ -22,7 +22,7 @@ export const EVENT_CONFIG = {
 
   // ── Fecha/hora en ISO 8601 con offset Argentina (UTC-3) ───────────────────
   // Usada por el countdown. Siempre incluir el offset -03:00
-  dateISO: process.env.NEXT_PUBLIC_EVENT_DATE ?? "2026-04-25T15:00:00-03:00",
+  dateISO: process.env.NEXT_PUBLIC_EVENT_DATE ?? "2026-04-25T14:45:00-03:00",
 
   // ── Nombre del lugar ──────────────────────────────────────────────────────
   location: process.env.NEXT_PUBLIC_EVENT_LOCATION ?? "Gravity Park",
@@ -34,7 +34,7 @@ export const EVENT_CONFIG = {
   dateFriendly: process.env.NEXT_PUBLIC_EVENT_DATE_FRIENDLY ?? "Sábado 25 de abril",
 
   // ── Texto de la hora para mostrar en pantalla ─────────────────────────────
-  timeFriendly: process.env.NEXT_PUBLIC_EVENT_TIME_FRIENDLY ?? "15:00 hs",
+  timeFriendly: process.env.NEXT_PUBLIC_EVENT_TIME_FRIENDLY ?? "14:45 a 16:20 hs",
 
   // ── Query para Google Maps embed/link ─────────────────────────────────────
   // Reemplazar espacios con + y usar nombre del lugar + dirección
@@ -58,8 +58,8 @@ export function getMapsUrl(): string {
   return `https://maps.google.com/?q=${EVENT_CONFIG.mapQuery}`;
 }
 
-/** URL del iframe embed de Google Maps */
+/** URL del iframe embed de Google Maps — muestra el pin del lugar */
 export function getMapsEmbedUrl(): string {
-  // Embed estático — no requiere API key
-  return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.9!2d-58.451!3d-34.618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc97b46a3b019%3A0x92bbc6b2d09e7b73!2s${encodeURIComponent(EVENT_CONFIG.location)}!5e0!3m2!1ses!2sar!4v1712000000000`;
+  // Formato ?q= sin API key: Google Maps muestra el marker automáticamente
+  return `https://maps.google.com/maps?q=${EVENT_CONFIG.mapQuery}&output=embed&hl=es&z=16`;
 }

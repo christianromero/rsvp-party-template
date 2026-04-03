@@ -3,6 +3,7 @@ import CountdownSection from "@/components/CountdownSection";
 import RSVPSection from "@/components/RSVPSection";
 import MapSection from "@/components/MapSection";
 import FooterSection from "@/components/FooterSection";
+import GlobalAurora from "@/components/GlobalAurora";
 
 // ── Obtener conteo inicial desde la API (SSR) ────────────────────────────────
 // Se hace server-side para que el primer render ya tenga el número real
@@ -26,7 +27,10 @@ export default async function Home() {
   const initialCount = await getInitialCount();
 
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main className="min-h-screen overflow-x-hidden relative">
+      {/* ── Capa de fondo global: une todas las secciones en una sola pieza ── */}
+      <GlobalAurora />
+
       {/* 1. Hero: título, tarjeta, CTA, contador */}
       <HeroSection initialCount={initialCount} />
 

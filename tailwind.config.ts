@@ -43,8 +43,9 @@ const config: Config = {
       },
       // ── Tipografías ──────────────────────────────────────────────────────────
       fontFamily: {
-        fredoka: ["Fredoka", "cursive"],
-        nunito:  ["Nunito", "sans-serif"],
+        fredoka:  ["Fredoka", "cursive"],
+        nunito:   ["Nunito", "sans-serif"],
+        pacifico: ["Pacifico", "cursive"],
       },
       // ── Animaciones personalizadas ───────────────────────────────────────────
       keyframes: {

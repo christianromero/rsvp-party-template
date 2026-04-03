@@ -205,3 +205,110 @@ body {
     rgba(27,82,232,0.04) 21px
   );
 }
+
+/* ── Partículas flotantes ────────────────────────────────────────────────────── */
+@keyframes particleFloat {
+  0%   { transform: translateY(0)      scale(1);          opacity: 0;   }
+  8%   {                                                   opacity: 0.9; }
+  85%  {                                                   opacity: 0.5; }
+  100% { transform: translateY(-110vh) scale(0.4);        opacity: 0;   }
+}
+
+@keyframes particleDrift {
+  0%   { transform: translateY(0)       translateX(0)    scale(1);    opacity: 0;   }
+  8%   {                                                               opacity: 0.8; }
+  50%  { transform: translateY(-50vh)   translateX(30px) scale(0.8);  opacity: 0.6; }
+  85%  {                                                               opacity: 0.3; }
+  100% { transform: translateY(-110vh)  translateX(-20px) scale(0.3); opacity: 0;   }
+}
+
+@keyframes particleSpinFloat {
+  0%   { transform: translateY(0)      rotate(0deg)   scale(1);   opacity: 0;   }
+  8%   {                                                           opacity: 0.9; }
+  85%  {                                                           opacity: 0.4; }
+  100% { transform: translateY(-110vh) rotate(720deg) scale(0.4); opacity: 0;   }
+}
+
+/* ── Estrellas fugaces ───────────────────────────────────────────────────────── */
+@keyframes shootingStarAnim {
+  0%   { transform: rotate(35deg) translateX(-20px);  opacity: 0;   }
+  5%   {                                               opacity: 1;   }
+  70%  {                                               opacity: 0.8; }
+  100% { transform: rotate(35deg) translateX(120vw);  opacity: 0;   }
+}
+
+/* ── Fondo cósmico animado (secciones no-hero) ───────────────────────────────── */
+.cosmic-section {
+  position: relative;
+  overflow: hidden;
+}
+.cosmic-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(27,82,232,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(107,47,232,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 60% 10%, rgba(255,82,0,0.07) 0%, transparent 55%);
+  animation: cosmicPulse 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.cosmic-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 30% at 10% 90%, rgba(0,200,255,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 90% 30%, rgba(255,11,122,0.06) 0%, transparent 50%);
+  animation: cosmicPulse 14s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes cosmicPulse {
+  0%,100% { opacity: 0.5; transform: scale(1)    rotate(0deg);   }
+  33%     { opacity: 0.9; transform: scale(1.06) rotate(0.5deg); }
+  66%     { opacity: 0.7; transform: scale(0.97) rotate(-0.3deg);}
+}
+
+/* ── Emojis flotantes ────────────────────────────────────────────────────────── */
+@keyframes emojiFloat {
+  0%   { transform: translateY(0)       scale(1);    opacity: 0;    }
+  6%   {                                             opacity: 0.65; }
+  50%  { transform: translateY(-48vh)   scale(0.9);  opacity: 0.45; }
+  88%  {                                             opacity: 0.12; }
+  100% { transform: translateY(-108vh)  scale(0.4);  opacity: 0;    }
+}
+@keyframes emojiFloatDrift {
+  0%   { transform: translateY(0)      translateX(0)    scale(1);    opacity: 0;    }
+  6%   {                                                             opacity: 0.7;  }
+  35%  { transform: translateY(-35vh)  translateX(24px) scale(0.85); opacity: 0.5;  }
+  65%  { transform: translateY(-68vh)  translateX(-18px) scale(0.7);               }
+  88%  {                                                             opacity: 0.15; }
+  100% { transform: translateY(-108vh) translateX(10px) scale(0.35); opacity: 0;    }
+}
+@keyframes emojiFloatSpin {
+  0%   { transform: translateY(0)      rotate(0deg)   scale(1);    opacity: 0;    }
+  6%   {                                                           opacity: 0.6;  }
+  50%  { transform: translateY(-50vh)  rotate(180deg) scale(0.85); opacity: 0.4;  }
+  88%  {                                                           opacity: 0.1;  }
+  100% { transform: translateY(-108vh) rotate(360deg) scale(0.35); opacity: 0;    }
+}
+
+/* ── GlobalAurora: orbes y olas ──────────────────────────────────────────────── */
+@keyframes auroraOrb {
+  0%,100% { transform: translate(-25%, -25%) scale(1)    rotate(0deg);   opacity: 1;    }
+  30%     { transform: translate(-25%, -25%) scale(1.12) rotate(4deg);   opacity: 1.1;  }
+  60%     { transform: translate(-25%, -25%) scale(0.93) rotate(-3deg);  opacity: 0.8;  }
+}
+@keyframes auroraWave {
+  0%,100% { transform: skewY(-8deg) scaleX(1);   opacity: 0.6; }
+  40%     { transform: skewY(-4deg) scaleX(1.08); opacity: 1;   }
+  70%     { transform: skewY(-10deg) scaleX(0.96); opacity: 0.5; }
+}
+
+/* ── Mapa filtro dark ────────────────────────────────────────────────────────── */
+.map-dark iframe {
+  filter: invert(93%) hue-rotate(177deg) brightness(0.88) saturate(1.4) contrast(0.92);
+}

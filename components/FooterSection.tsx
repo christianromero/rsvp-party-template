@@ -1,12 +1,25 @@
 import { EVENT_CONFIG } from "@/lib/event-config";
+import ParticleField from "./ParticleField";
+import ShootingStars from "./ShootingStars";
+import FloatingEmojis from "./FloatingEmojis";
 
 export default function FooterSection() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-12 px-4 relative overflow-hidden bg-gp-blue-bg border-t border-gp-blue/20">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[100px]
-                      bg-gp-blue/10 rounded-full blur-[60px] pointer-events-none" />
+    <footer className="py-12 px-4 relative overflow-hidden bg-gp-blue-bg border-t border-gp-blue/20 cosmic-section">
+      {/* ── Orbes de fondo ────────────────────────────────────────────────── */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[150px]
+                      bg-gp-blue/12 rounded-full blur-[70px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[280px] h-[200px]
+                      bg-gp-purple/15 rounded-full blur-[60px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[250px] h-[200px]
+                      bg-gp-orange/10 rounded-full blur-[60px] pointer-events-none" />
+
+      {/* ── Animaciones ───────────────────────────────────────────────────── */}
+      <ShootingStars />
+      <ParticleField count={18} />
+      <FloatingEmojis count={10} />
 
       <div className="relative z-10 max-w-lg mx-auto text-center space-y-4">
         <div className="flex justify-center gap-3 text-2xl">

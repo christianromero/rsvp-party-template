@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { EVENT_CONFIG } from "@/lib/event-config";
+import ParticleField from "./ParticleField";
+import ShootingStars from "./ShootingStars";
+import FloatingEmojis from "./FloatingEmojis";
 
 // ── Fecha del evento desde la config ─────────────────────────────────────────
 // dateISO incluye el offset de timezone: "2026-04-25T15:00:00-03:00"
@@ -83,10 +86,16 @@ export default function CountdownSection() {
   }
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark">
+    <section className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark cosmic-section">
       <div className="absolute inset-0 bg-gradient-to-b from-gp-blue-bg via-gp-blue-dark to-gp-blue-bg" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px]
                       bg-gp-blue/20 rounded-full blur-[80px]" />
+      <ShootingStars />
+      <ParticleField count={24} />
+      <FloatingEmojis count={7} />
+      {/* Orbe extra inferior */}
+      <div className="absolute bottom-0 right-0 w-[350px] h-[350px]
+                      bg-gp-orange/10 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         <div className="section-divider mb-6" />
