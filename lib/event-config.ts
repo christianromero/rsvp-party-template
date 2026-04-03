@@ -22,7 +22,7 @@ export const EVENT_CONFIG = {
 
   // ── Fecha/hora en ISO 8601 con offset Argentina (UTC-3) ───────────────────
   // Usada por el countdown. Siempre incluir el offset -03:00
-  dateISO: process.env.NEXT_PUBLIC_EVENT_DATE ?? "2026-04-25T15:00:00-03:00",
+  dateISO: process.env.NEXT_PUBLIC_EVENT_DATE ?? "2026-04-25T14:45:00-03:00",
 
   // ── Nombre del lugar ──────────────────────────────────────────────────────
   location: process.env.NEXT_PUBLIC_EVENT_LOCATION ?? "Gravity Park",
@@ -34,7 +34,7 @@ export const EVENT_CONFIG = {
   dateFriendly: process.env.NEXT_PUBLIC_EVENT_DATE_FRIENDLY ?? "Sábado 25 de abril",
 
   // ── Texto de la hora para mostrar en pantalla ─────────────────────────────
-  timeFriendly: process.env.NEXT_PUBLIC_EVENT_TIME_FRIENDLY ?? "15:00 hs",
+  timeFriendly: process.env.NEXT_PUBLIC_EVENT_TIME_FRIENDLY ?? "14:45 a 16:20 hs",
 
   // ── Query para Google Maps embed/link ─────────────────────────────────────
   // Reemplazar espacios con + y usar nombre del lugar + dirección
