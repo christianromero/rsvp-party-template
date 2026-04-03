@@ -100,10 +100,7 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
           </span>
         </h1>
 
-        <p className="font-nunito text-lg md:text-xl text-white/85 mt-2 mb-1">
-          te invitan a su cumple 🥳
-        </p>
-        <p className="font-nunito text-sm md:text-base text-gp-text-dim mb-8">
+        <p className="font-nunito text-sm md:text-base text-gp-text-dim mt-3 mb-8">
           {getEventSubtitle()}
         </p>
 

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 // ── Metadata de la página ────────────────────────────────────────────────────
+const SITE_URL = "https://rsvp-party-template.vercel.app";
+const OG_IMAGE = `${SITE_URL}/assets/invitation-card.jpg`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "¡Cumple Carme & Inne! 🎉 — Confirmá tu asistencia",
   description:
     "Carme & Inne te invitan a su cumpleaños en Gravity Park, Caballito. Sábado 25 de abril a las 14:45 hs. ¡Confirmá tu asistencia!",
@@ -12,9 +16,10 @@ export const metadata: Metadata = {
     description:
       "Sábado 25 de abril a las 14:45 hs — Gravity Park, Av. Gaona 1837, Caballito. ¡Confirmá tu asistencia!",
     type: "website",
+    url: SITE_URL,
     images: [
       {
-        url: "/assets/invitation-card.jpg",
+        url: OG_IMAGE,
         width: 600,
         height: 860,
         alt: "Tarjeta de invitación — Cumple Carme & Inne en Gravity Park",
@@ -25,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "¡Cumple Carme & Inne! 🎉",
     description: "Sábado 25 de abril a las 14:45 hs — Gravity Park, Caballito.",
-    images: ["/assets/invitation-card.jpg"],
+    images: [OG_IMAGE],
   },
   // Evitar que buscadores indexen la página privada de invitados
   robots: "noindex, nofollow",
