@@ -68,41 +68,32 @@ export async function POST(req: NextRequest) {
     // NOTA: si se cambia el deployment, actualizar esta URL
     const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7IhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
 
+    // IMPORTANTE: Google Apps Script redirige (302) las solicitudes POST al echo server.
+    // Si se sigue el redirect automáticamente, el echo server devuelve 401 (requiere login).
+    // Solución: NO seguir el redirect. Un 302 significa que el script ejecutó correctamente.
     const response = await fetch(appsScriptUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-      redirect: "follow",
-      // Timeout de 10 segundos
+      redirect: "manual",  // No seguir el redirect 302
       signal: AbortSignal.timeout(10_000),
     });
 
-    // Apps Script puede devolver 302 (redirect) o respuesta directa.
-    // Con redirect:"follow", fetch sigue el redirect automáticamente.
-    // Si la respuesta final no es OK (ej: 403, 500), logeamos y retornamos error.
-    console.log("Apps Script status:", response.status, "ok:", response.ok, "url:", response.url);
+    console.log("Apps Script status:", response.status);
 
-    if (!response.ok) {
-      const bodyText = await response.text().catch(() => "");
-      console.error("Apps Script respondió con:", response.status, bodyText.substring(0, 200));
-      // Retornar el status real para debugging
-      return NextResponse.json(
-        { error: `Error guardando [HTTP ${response.status}]: ${bodyText.substring(0, 100)}` },
-        { status: 502 }
-      );
+    // 302 = Apps Script procesó el POST y redirigió al echo (éxito)
+    // 200 = respuesta directa (sin redirect)
+    if (response.status === 302 || response.ok) {
+      return NextResponse.json({ success: true });
     }
 
-    const result = await response.json().catch(() => ({ success: true }));
-
-    if (result.error) {
-      // El Apps Script nos devuelve un error de negocio (ej: duplicado)
-      return NextResponse.json({ error: result.error }, { status: 409 });
-    }
-
-    return NextResponse.json({
-      success: true,
-      count: result.count ?? null,
-    });
+    // Cualquier otro status es error
+    const bodyText = await response.text().catch(() => "");
+    console.error("Apps Script respondió con:", response.status, bodyText.substring(0, 200));
+    return NextResponse.json(
+      { error: "Error guardando la inscripción. Intentá de nuevo en unos minutos." },
+      { status: 502 }
+    );
 
   } catch (err: unknown) {
     if (err instanceof Error && err.name === "TimeoutError") {
