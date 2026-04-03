@@ -63,8 +63,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error }, { status: 400 });
     }
 
-    // ── Reenviar al Apps Script (la URL es secreta y vive en el servidor) ────
-    const appsScriptUrl = process.env.APPS_SCRIPT_URL;
+    // ── Reenviar al Apps Script ───────────────────────────────────────────────
+    const APPS_SCRIPT_DEFAULT = "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7IhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
+    const appsScriptUrl = process.env.APPS_SCRIPT_URL ?? APPS_SCRIPT_DEFAULT;
     if (!appsScriptUrl) {
       console.error("APPS_SCRIPT_URL no configurado");
       return NextResponse.json(
