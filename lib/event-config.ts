@@ -52,7 +52,7 @@ export const EVENT_CONFIG = {
 
 // ── Helpers derivados ─────────────────────────────────────────────────────────
 
-/** Texto compacto para subtítulos: "Sábado 25 de abril · 15:00 hs · Gravity Park, Caballito" */
+/** Texto compacto para subtítulos: "Sábado 25 de abril · 14:45 a 16:20 hs · Gravity Park, Caballito" */
 export function getEventSubtitle(): string {
   return `${EVENT_CONFIG.dateFriendly} · ${EVENT_CONFIG.timeFriendly} · ${EVENT_CONFIG.location}, ${EVENT_CONFIG.address.split(",").pop()?.trim() ?? EVENT_CONFIG.address}`;
 }

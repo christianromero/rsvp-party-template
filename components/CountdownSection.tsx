@@ -7,7 +7,7 @@ import ShootingStars from "./ShootingStars";
 import FloatingEmojis from "./FloatingEmojis";
 
 // ── Fecha del evento desde la config ─────────────────────────────────────────
-// dateISO incluye el offset de timezone: "2026-04-25T15:00:00-03:00"
+// dateISO incluye el offset de timezone: "2026-04-25T14:45:00-03:00"
 function getEventDate(): Date {
   return new Date(EVENT_CONFIG.dateISO);
 }

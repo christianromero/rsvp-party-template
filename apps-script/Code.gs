@@ -308,7 +308,7 @@ function _sendReminderEmail(email, nombre) {
 
     // Preheader oculto (aparece en el preview del mail)
     '<div style="display:none;max-height:0;overflow:hidden;">' +
-    '¡Hoy es el gran día! Te esperamos a las 15 hs en Gravity Park, Caballito 🎉' +
+    '¡Hoy es el gran día! Te esperamos a las 14:45 hs en Gravity Park, Caballito 🎉' +
     '</div>' +
 
     // Contenedor principal
