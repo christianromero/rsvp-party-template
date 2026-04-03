@@ -58,7 +58,7 @@ export default function CounterBadge({ initialCount }: CounterBadgeProps) {
       <span className="font-fredoka text-lg md:text-xl text-white">
         {count === 0 ? (
           <>
-            <span className="text-gp-text-dim">Sé el primero en confirmar</span>
+            <span className="text-gp-text-dim">¡Sé la primer persona en confirmar!</span>
             {" "}
             <span>👀</span>
           </>

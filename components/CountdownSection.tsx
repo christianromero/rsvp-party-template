@@ -54,9 +54,10 @@ function EventDetails() {
   return (
     <div className="flex flex-wrap justify-center gap-4 mt-10">
       {[
-        { icon: "📅", label: "Fecha",   value: EVENT_CONFIG.dateFriendly },
-        { icon: "⏰", label: "Hora",    value: EVENT_CONFIG.timeFriendly },
-        { icon: "📍", label: "Lugar",   value: `${EVENT_CONFIG.location}, ${EVENT_CONFIG.address.split(",").pop()?.trim() ?? ""}` },
+        { icon: "📅", label: "Fecha",  value: EVENT_CONFIG.dateFriendly },
+        { icon: "⏰", label: "Inicio", value: EVENT_CONFIG.startTimeFriendly },
+        { icon: "🏁", label: "Fin",    value: EVENT_CONFIG.endTimeFriendly },
+        { icon: "📍", label: "Lugar",  value: `${EVENT_CONFIG.location}, ${EVENT_CONFIG.address.split(",").pop()?.trim() ?? ""}` },
       ].map(({ icon, label, value }) => (
         <div key={label}
              className="flex items-center gap-3 px-5 py-3 rounded-xl glass-card border border-gp-blue/20">

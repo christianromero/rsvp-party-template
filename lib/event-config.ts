@@ -36,6 +36,10 @@ export const EVENT_CONFIG = {
   // ── Texto de la hora para mostrar en pantalla ─────────────────────────────
   timeFriendly: process.env.NEXT_PUBLIC_EVENT_TIME_FRIENDLY ?? "14:45 a 16:20 hs",
 
+  // ── Hora de inicio y fin por separado (para badges individuales) ──────────
+  startTimeFriendly: process.env.NEXT_PUBLIC_EVENT_START_TIME ?? "14:45 hs",
+  endTimeFriendly:   process.env.NEXT_PUBLIC_EVENT_END_TIME   ?? "16:20 hs",
+
   // ── Query para Google Maps embed/link ─────────────────────────────────────
   // Reemplazar espacios con + y usar nombre del lugar + dirección
   mapQuery: process.env.NEXT_PUBLIC_EVENT_MAP_QUERY
