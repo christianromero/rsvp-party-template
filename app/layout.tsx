@@ -3,7 +3,7 @@ import "./globals.css";
 
 // ── Metadata de la página ────────────────────────────────────────────────────
 const SITE_URL = "https://rsvp-party-template.vercel.app";
-const OG_IMAGE = `${SITE_URL}/assets/invitation-card.jpg`;
+const OG_IMAGE = `${SITE_URL}/assets/og-social.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 600,
-        height: 860,
+        width: 1200,
+        height: 630,
         alt: "Tarjeta de invitación — Cumple Carme & Inne en Gravity Park",
       },
     ],
