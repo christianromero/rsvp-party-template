@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 // URL del deployment activo (App web, acceso: Cualquier persona)
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7lhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
+  "https://script.google.com/macros/s/AKfycbzRAVDcfLEuSwy33u1LVvB_PlI6yEcU64YwdmhJx4zKwqi0o4oAU20p3hK94uOwMHeBoQ/exec";
 
 // ── GET /api/count ───────────────────────────────────────────────────────────
 // Devuelve el número actual de confirmados consultando el Apps Script.

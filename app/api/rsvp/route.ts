@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
 
     // ── Reenviar al Apps Script ───────────────────────────────────────────────
     // URL del deployment activo (App web, acceso: Cualquier persona)
-    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7lhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbzRAVDcfLEuSwy33u1LVvB_PlI6yEcU64YwdmhJx4zKwqi0o4oAU20p3hK94uOwMHeBoQ/exec";
 
     // IMPORTANTE: Google Apps Script redirige (302) las solicitudes POST al echo server.
     // Si se sigue el redirect automáticamente, el echo server devuelve 401 (requiere login).
