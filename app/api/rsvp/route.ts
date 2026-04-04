@@ -64,9 +64,9 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Reenviar al Apps Script ───────────────────────────────────────────────
-    // URL fija del deployment activo (versión 4, 3 abr 2026)
+    // URL fija del deployment activo (versión 7, App web, 3 abr 2026)
     // NOTA: si se cambia el deployment, actualizar esta URL
-    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwoGXlNZNf1VvqgpHE7IhQqz3w4z6yzqk1HcyCmUabjjiD3CmnadQwMJbN3BzvTz7Fp/exec";
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwEtL-HcZ9I8p81a8lCFC3pIv2gm7ohD7h5VPRIjqaUydHH89DNvGRuFZe8ApmhIJzW6g/exec";
 
     // IMPORTANTE: Google Apps Script redirige (302) las solicitudes POST al echo server.
     // Si se sigue el redirect automáticamente, el echo server devuelve 401 (requiere login).
