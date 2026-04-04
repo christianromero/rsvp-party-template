@@ -6,7 +6,7 @@ const CONFIG = {
   EVENT_TIME:      "14:45 hs",
   EVENT_LOCATION:  "Gravity Park - Av. Gaona 1837, Caballito",
   MAPS_LINK:       "https://maps.google.com/?q=Av.+Gaona+1837,+Caballito,+Buenos+Aires",
-  SENDER_NAME:     "Cumple Carme & Inne",
+  SENDER_NAME:     "Invitaciones Digitales",
   FROM_EMAIL:      "invitacionesdigitales.latam@gmail.com",
   ORGANIZER_EMAIL: "christian.romero.a@gmail.com",
 };
@@ -108,16 +108,16 @@ function sendConfirmation(data) {
       <!-- Header con degradado festivo -->
       <tr>
         <td style="background:linear-gradient(135deg,#1a1040 0%,#2d1b69 40%,#4c1d95 100%);padding:40px 32px 32px;text-align:center;">
-          <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#c4b5fd;">Estas invitado/a</p>
+          <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#c4b5fd;">Confirmacion</p>
           <h1 style="margin:0 0 4px;font-family:Georgia,serif;font-size:32px;font-weight:700;color:#ffffff;line-height:1.2;">Cumple de</h1>
-          <h1 style="margin:0;font-family:Georgia,serif;font-size:38px;font-weight:700;color:#fbbf24;line-height:1.2;">Carme & Inne</h1>
-          <div style="margin:20px auto 0;width:60px;height:2px;background:#fbbf24;border-radius:2px;"></div>
+          <h1 style="margin:0;font-family:Georgia,serif;font-size:38px;font-weight:700;color:#fde68a;line-height:1.2;">Carme & Inne</h1>
+          <div style="margin:20px auto 0;width:60px;height:2px;background:#fde68a;border-radius:2px;"></div>
         </td>
       </tr>
       <!-- Cuerpo -->
       <tr>
         <td style="background:#13172a;padding:32px;">
-          <p style="margin:0 0 20px;font-family:sans-serif;font-size:17px;color:#e2e8f0;line-height:1.5;">Hola <strong style="color:#fbbf24;">${nombre}</strong>, tu lugar esta confirmado.</p>
+          <p style="margin:0 0 20px;font-family:sans-serif;font-size:17px;color:#e2e8f0;line-height:1.5;">Hola <strong style="color:#fde68a;">${nombre}</strong>, tu lugar esta confirmado.</p>
           <!-- Card de datos del evento -->
           <table width="100%" cellpadding="0" cellspacing="0" style="background:#1e2340;border-radius:12px;border:1px solid #2d3561;margin-bottom:24px;">
             <tr>
@@ -182,19 +182,63 @@ function sendReminderEmails() {
       + "Donde: " + CONFIG.EVENT_LOCATION + "\n\n"
       + "Como llegar: " + CONFIG.MAPS_LINK + "\n\n"
       + "Los esperamos!";
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>
-<div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;background:#fff;border-radius:12px;border:1px solid #e5e7eb">
-  <h1 style="margin:0 0 8px;font-size:26px;color:#111827">¡Hoy es el gran día!</h1>
-  <p style="margin:0 0 24px;color:#4b5563;font-size:16px">Hola <strong>${nombreCompleto}</strong>, te recordamos que hoy es el cumple de <strong>Carme &amp; Inne</strong>.</p>
-  <div style="background:#f9fafb;border-radius:8px;padding:20px;margin-bottom:24px">
-    <p style="margin:0 0 10px;color:#374151;font-size:15px"><strong>${CONFIG.EVENT_DATE}</strong></p>
-    <p style="margin:0 0 10px;color:#374151;font-size:15px"><strong>${CONFIG.EVENT_TIME}</strong></p>
-    <p style="margin:0 0 10px;color:#374151;font-size:15px">${CONFIG.EVENT_LOCATION}</p>
-    <p style="margin:0;font-size:15px"><a href="${CONFIG.MAPS_LINK}" style="color:#6366f1;text-decoration:none">Como llegar →</a></p>
-  </div>
-  <p style="margin:0;color:#6b7280;font-size:15px">¡Los esperamos!</p>
-  <p style="margin:16px 0 0;color:#9ca3af;font-size:13px">— Cumple Carme &amp; Inne</p>
-</div>
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#0b0f1a;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#0b0f1a;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="520" cellpadding="0" cellspacing="0" style="max-width:520px;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.3);">
+      <!-- Header con degradado festivo -->
+      <tr>
+        <td style="background:linear-gradient(135deg,#1a1040 0%,#2d1b69 40%,#4c1d95 100%);padding:40px 32px 32px;text-align:center;">
+          <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#c4b5fd;">Recordatorio</p>
+          <h1 style="margin:0 0 4px;font-family:Georgia,serif;font-size:32px;font-weight:700;color:#ffffff;line-height:1.2;">Cumple de</h1>
+          <h1 style="margin:0;font-family:Georgia,serif;font-size:38px;font-weight:700;color:#fde68a;line-height:1.2;">Carme & Inne</h1>
+          <div style="margin:20px auto 0;width:60px;height:2px;background:#fde68a;border-radius:2px;"></div>
+        </td>
+      </tr>
+      <!-- Cuerpo -->
+      <tr>
+        <td style="background:#13172a;padding:32px;">
+          <p style="margin:0 0 20px;font-family:sans-serif;font-size:17px;color:#e2e8f0;line-height:1.5;">Hola <strong style="color:#fde68a;">${nombreCompleto}</strong>, te recordamos que hoy es el gran dia.</p>
+          <!-- Card de datos del evento -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#1e2340;border-radius:12px;border:1px solid #2d3561;margin-bottom:24px;">
+            <tr>
+              <td style="padding:24px;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="padding:0 0 16px;">
+                      <p style="margin:0 0 2px;font-family:sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;">Cuando</p>
+                      <p style="margin:0;font-family:sans-serif;font-size:16px;font-weight:600;color:#ffffff;">${CONFIG.EVENT_DATE}</p>
+                      <p style="margin:2px 0 0;font-family:sans-serif;font-size:15px;color:#c4b5fd;">${CONFIG.EVENT_TIME}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="border-top:1px solid #2d3561;padding:16px 0 16px;">
+                      <p style="margin:0 0 2px;font-family:sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;">Donde</p>
+                      <p style="margin:0;font-family:sans-serif;font-size:16px;font-weight:600;color:#ffffff;">Gravity Park</p>
+                      <p style="margin:2px 0 0;font-family:sans-serif;font-size:14px;color:#94a3b8;">Av. Gaona 1837, Caballito</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="border-top:1px solid #2d3561;padding:16px 0 0;">
+                      <a href="${CONFIG.MAPS_LINK}" style="display:inline-block;background:#4c1d95;color:#ffffff;font-family:sans-serif;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;border-radius:8px;">Ver en Google Maps</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:0;font-family:sans-serif;font-size:15px;color:#94a3b8;line-height:1.5;">Te esperamos para pasarla increible. No te olvides de llevar medias para saltar en los trampolines.</p>
+        </td>
+      </tr>
+      <!-- Footer -->
+      <tr>
+        <td style="background:#0e1225;padding:20px 32px;text-align:center;border-top:1px solid #1e2340;">
+          <p style="margin:0;font-family:sans-serif;font-size:13px;color:#475569;">Cumple Carme & Inne -- Gravity Park 2026</p>
+        </td>
+      </tr>
+    </table>
+  </td></tr>
+</table>
 </body></html>`;
     GmailApp.sendEmail(email, subject, plain, {
       name: CONFIG.SENDER_NAME,
