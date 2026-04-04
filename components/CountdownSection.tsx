@@ -101,14 +101,16 @@ export default function CountdownSection() {
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         <div className="section-divider mb-6" />
         <h2 className="font-fredoka text-3xl md:text-4xl text-white mb-1">
-          {timeLeft.expired ? "¡Ya está arrancando! 🎉" : "Falta muy poquito"}
+          {timeLeft.expired ? "Ya estamos festejando" : "Falta muy poquito"}
         </h2>
         <p className="font-nunito text-gp-text-dim text-sm mb-8">
-          El reloj corre... ¡no te quedés sin lugar!
+          {timeLeft.expired
+            ? "El cumple de Carme & Inne esta en curso"
+            : "El reloj corre... no te quedes sin lugar"}
         </p>
 
         {timeLeft.expired ? (
-          <div className="text-5xl animate-bounce mb-4">🎉🎊🎈</div>
+          <div className="text-5xl animate-bounce mb-4">* * *</div>
         ) : (
           <div className="grid grid-cols-4 gap-3 md:gap-5">
             <CountdownUnit value={timeLeft.days}    label="Días"  color="glow-blue"   />
@@ -121,7 +123,7 @@ export default function CountdownSection() {
         <EventDetails />
 
         <p className="mt-10 font-nunito text-gp-text-dim text-sm">
-          Te esperamos para saltar, jugar y divertirnos juntos 🕹️
+          Te esperamos para saltar, jugar y divertirnos juntos
         </p>
       </div>
     </section>

@@ -1,10 +1,43 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import RSVPForm from "./RSVPForm";
 import { EVENT_CONFIG } from "@/lib/event-config";
 import ParticleField from "./ParticleField";
 import ShootingStars from "./ShootingStars";
 import FloatingEmojis from "./FloatingEmojis";
 
+function EventPassed() {
+  return (
+    <div className="py-12 flex flex-col items-center text-center">
+      <div className="text-6xl mb-6">
+        <span style={{ animation: "float 2.5s ease-in-out infinite" }}>*</span>
+      </div>
+      <h3 className="font-fredoka text-3xl md:text-4xl gradient-text mb-3">
+        Gracias por venir
+      </h3>
+      <p className="font-nunito text-white/85 text-lg mb-2">
+        El cumple de Carme & Inne ya fue un exito
+      </p>
+      <p className="font-nunito text-gp-text-dim text-sm max-w-xs">
+        La pasamos increible en Gravity Park. Gracias a todos los que vinieron a festejar con nosotros.
+      </p>
+    </div>
+  );
+}
+
 export default function RSVPSection() {
+  const [expired, setExpired] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const eventEnd = new Date(EVENT_CONFIG.dateISO);
+    // Consider event over 2 hours after start time
+    eventEnd.setHours(eventEnd.getHours() + 2);
+    setExpired(new Date() > eventEnd);
+  }, []);
+
   return (
     <section
       id="rsvp-section"
@@ -25,16 +58,18 @@ export default function RSVPSection() {
         <div className="text-center mb-8">
           <div className="section-divider mb-5" />
           <h2 className="font-fredoka text-3xl md:text-4xl text-white mb-2">
-            Confirmá tu asistencia
+            {mounted && expired ? "El cumple ya paso" : "Confirma tu asistencia"}
           </h2>
-          <p className="font-nunito text-gp-text-dim text-base">
-            Completá el formulario y listo — te enviamos un recordatorio el día de{" "}
-            <span className="text-white font-bold">{EVENT_CONFIG.name}</span> 🎉
-          </p>
+          {!(mounted && expired) && (
+            <p className="font-nunito text-gp-text-dim text-base">
+              Completa el formulario y listo — te enviamos un recordatorio el dia de{" "}
+              <span className="text-white font-bold">{EVENT_CONFIG.name}</span>
+            </p>
+          )}
         </div>
 
         <div className="glass-card-orange rounded-3xl p-6 md:p-8 shadow-2xl">
-          <RSVPForm />
+          {mounted && expired ? <EventPassed /> : <RSVPForm />}
         </div>
       </div>
     </section>
