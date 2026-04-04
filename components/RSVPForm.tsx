@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 interface FormValues {
@@ -121,6 +121,20 @@ export default function RSVPForm({ onSuccess }: { onSuccess?: (count: number) =>
   const [success, setSuccess]   = useState(false);
   const [confirmedName, setConfirmedName] = useState("");
 
+  // Al montar: revisar si ya confirmó antes (persiste entre visitas)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("rsvp_confirmed");
+      if (saved) {
+        const { name } = JSON.parse(saved);
+        setConfirmedName(name || "");
+        setSuccess(true);
+      }
+    } catch {
+      // localStorage no disponible (SSR, modo privado estricto) → ignorar
+    }
+  }, []);
+
   // Actualizar campo
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,7 +185,10 @@ export default function RSVPForm({ onSuccess }: { onSuccess?: (count: number) =>
         return;
       }
 
-      // ¡Éxito!
+      // ¡Éxito! — persistir en localStorage para que no vea el form de nuevo
+      try {
+        localStorage.setItem("rsvp_confirmed", JSON.stringify({ name: values.nombre }));
+      } catch { /* ignorar si no disponible */ }
       setConfirmedName(values.nombre);
       setSuccess(true);
       if (onSuccess && typeof data.count === "number") {
