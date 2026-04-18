@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { EVENT_CONFIG } from "@/lib/event-config";
 
 // ── Tipos ─────────────────────────────────────────────────────────────────────
 interface RSVPPayload {
@@ -10,6 +11,10 @@ interface RSVPPayload {
   observaciones?: string;
   _hp?: string; // honeypot anti-spam
 }
+
+// URL del deployment activo (App web, acceso: Cualquier persona)
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwSY6CFFQQzbxfcPOk_OBcM3l_mfb49e94ASlJVCptezoKtrNq8pVyf5O-phAduRnJ8/exec";
 
 // ── Sanitización básica ───────────────────────────────────────────────────────
 function sanitizeString(val: unknown, maxLen = 100): string {
@@ -34,6 +39,22 @@ function validate(data: RSVPPayload): string | null {
     return "El email es inválido";
   }
   return null;
+}
+
+// ── Obtener el count actual desde el Apps Script ────────────────────────────
+async function fetchCurrentCount(): Promise<number | null> {
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(6_000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json().catch(() => null);
+    if (!data || typeof data.count !== "number") return null;
+    return Math.max(0, data.count);
+  } catch {
+    return null;
+  }
 }
 
 // ── POST /api/rsvp ────────────────────────────────────────────────────────────
@@ -63,14 +84,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error }, { status: 400 });
     }
 
-    // ── Reenviar al Apps Script ───────────────────────────────────────────────
-    // URL del deployment activo (App web, acceso: Cualquier persona)
-    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbwSY6CFFQQzbxfcPOk_OBcM3l_mfb49e94ASlJVCptezoKtrNq8pVyf5O-phAduRnJ8/exec";
+    // ── Validar capacidad (defensa en profundidad) ───────────────────────────
+    // Consultamos el count actual antes de aceptar el RSVP. Esto evita que
+    // se graben confirmaciones extra por encima del tope — la UI ya filtra,
+    // pero puede haber race conditions con varias pestañas abiertas.
+    const currentCount = await fetchCurrentCount();
+    if (currentCount !== null && currentCount >= EVENT_CONFIG.capacity) {
+      return NextResponse.json(
+        {
+          error: "El cupo se acaba de completar. ¡Gracias por querer sumarte!",
+          full: true,
+        },
+        { status: 409 },
+      );
+    }
 
+    // ── Reenviar al Apps Script ───────────────────────────────────────────────
     // IMPORTANTE: Google Apps Script redirige (302) las solicitudes POST al echo server.
     // Si se sigue el redirect automáticamente, el echo server devuelve 401 (requiere login).
     // Solución: NO seguir el redirect. Un 302 significa que el script ejecutó correctamente.
-    const response = await fetch(appsScriptUrl, {
+    const response = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

@@ -6,6 +6,7 @@ import ShootingStars from "./ShootingStars";
 import ParticleField from "./ParticleField";
 import FloatingEmojis from "./FloatingEmojis";
 import { EVENT_CONFIG, getEventSubtitle } from "@/lib/event-config";
+import { useLiveCount } from "@/lib/useLiveCount";
 
 // ── Estrellas decorativas en el fondo ────────────────────────────────────────
 const STARS = Array.from({ length: 48 }, (_, i) => ({
@@ -23,8 +24,17 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ initialCount }: HeroSectionProps) {
+  // Fuente de verdad del conteo en cliente: se inicializa con el SSR y
+  // se actualiza cada 30s. El estado derivado decide CTA y mensajes.
+  const { count, state, bumping } = useLiveCount(initialCount);
+  const isFull = state === "full";
+
   const scrollToForm = () => {
     document.getElementById("rsvp-section")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToCountdown = () => {
+    document.getElementById("countdown-section")?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Separar "Cumple Carme & Inne" → prefix="Cumple", partyName="Carme & Inne"
@@ -126,17 +136,30 @@ export default function HeroSection({ initialCount }: HeroSectionProps) {
         </div>
 
         {/* ── Contador en vivo ──────────────────────────────────────────── */}
-        <CounterBadge initialCount={initialCount} />
+        <CounterBadge count={count} state={state} bumping={bumping} />
 
         {/* ── CTA ───────────────────────────────────────────────────────── */}
-        <button
-          onClick={scrollToForm}
-          className="btn-primary mt-6 px-10 py-4 rounded-full font-fredoka text-xl md:text-2xl
-                     text-white shadow-2xl cursor-pointer"
-          aria-label="Ir al formulario de confirmación de asistencia"
-        >
-          Confirmar asistencia 🙋
-        </button>
+        {isFull ? (
+          <button
+            onClick={scrollToCountdown}
+            className="mt-6 px-10 py-4 rounded-full font-fredoka text-xl md:text-2xl
+                       text-white shadow-2xl cursor-pointer transition-all duration-200
+                       bg-gp-blue-card/80 border border-gp-blue/40 hover:border-gp-blue
+                       hover:bg-gp-blue-card hover:scale-[1.02]"
+            aria-label="Ver detalles del evento"
+          >
+            Ver detalles del evento ✨
+          </button>
+        ) : (
+          <button
+            onClick={scrollToForm}
+            className="btn-primary mt-6 px-10 py-4 rounded-full font-fredoka text-xl md:text-2xl
+                       text-white shadow-2xl cursor-pointer"
+            aria-label="Ir al formulario de confirmación de asistencia"
+          >
+            Confirmar asistencia 🙋
+          </button>
+        )}
 
         <div className="mt-10 flex flex-col items-center text-gp-muted animate-bounce">
           <span className="font-nunito text-xs mb-1">Ver detalles del evento</span>

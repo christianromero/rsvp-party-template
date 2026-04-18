@@ -87,7 +87,7 @@ export default function CountdownSection() {
   }
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark cosmic-section">
+    <section id="countdown-section" className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark cosmic-section">
       <div className="absolute inset-0 bg-gradient-to-b from-gp-blue-bg via-gp-blue-dark to-gp-blue-bg" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px]
                       bg-gp-blue/20 rounded-full blur-[80px]" />

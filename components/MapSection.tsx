@@ -5,7 +5,7 @@ import FloatingEmojis from "./FloatingEmojis";
 
 export default function MapSection() {
   return (
-    <section className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark cosmic-section">
+    <section id="map-section" className="py-20 px-4 relative overflow-hidden bg-gp-blue-dark cosmic-section">
       <div className="absolute inset-0 bg-gradient-to-b from-gp-blue-bg to-gp-blue-dark" />
 
       {/* ── Orbes de fondo ────────────────────────────────────────────────── */}

@@ -38,7 +38,7 @@ export default async function Home() {
       <CountdownSection />
 
       {/* 3. Formulario RSVP */}
-      <RSVPSection />
+      <RSVPSection initialCount={initialCount} />
 
       {/* 4. Mapa de Google Maps */}
       <MapSection />

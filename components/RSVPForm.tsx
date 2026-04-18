@@ -111,6 +111,30 @@ function SuccessScreen({ nombre }: { nombre: string }) {
   );
 }
 
+// ── Estado: cupo se completó mientras llenaba el formulario ───────────────────
+// Race condition rara pero posible: dos personas envían al mismo tiempo y
+// la segunda pega con el cupo recién completo. UX cálida, no agresiva.
+function JustFilledScreen() {
+  return (
+    <div className="py-10 flex flex-col items-center text-center">
+      <div className="flex gap-3 text-5xl mb-5" aria-hidden>
+        <span style={{ animation: "float 2.8s ease-in-out infinite" }}>🎉</span>
+        <span style={{ animation: "float 2.2s ease-in-out infinite", animationDelay: "0.3s" }}>🙏</span>
+        <span style={{ animation: "float 3.2s ease-in-out infinite", animationDelay: "0.6s" }}>🎊</span>
+      </div>
+      <h3 className="font-fredoka text-3xl md:text-4xl gradient-text mb-3">
+        ¡Llegaste justo al final!
+      </h3>
+      <p className="font-nunito text-white/90 text-lg mb-2 max-w-sm">
+        Se acaban de completar los lugares mientras confirmabas.
+      </p>
+      <p className="font-nunito text-gp-text-dim text-sm max-w-xs">
+        Gracias por las ganas de sumarte al cumple — te agradecemos enormemente el cariño ✨
+      </p>
+    </div>
+  );
+}
+
 // ── Formulario principal ──────────────────────────────────────────────────────
 export default function RSVPForm({ onSuccess }: { onSuccess?: (count: number) => void }) {
   const [values, setValues] = useState<FormValues>({
@@ -119,6 +143,7 @@ export default function RSVPForm({ onSuccess }: { onSuccess?: (count: number) =>
   const [errors, setErrors]     = useState<FormErrors>({});
   const [loading, setLoading]   = useState(false);
   const [success, setSuccess]   = useState(false);
+  const [justFilled, setJustFilled] = useState(false);
   const [confirmedName, setConfirmedName] = useState("");
 
   // Al montar: revisar si ya confirmó antes (persiste entre visitas)
@@ -180,6 +205,12 @@ export default function RSVPForm({ onSuccess }: { onSuccess?: (count: number) =>
 
       const data = await res.json();
 
+      // Cupo lleno (race condition): mostramos pantalla amigable específica
+      if (res.status === 409 && data?.full) {
+        setJustFilled(true);
+        return;
+      }
+
       if (!res.ok || data.error) {
         setErrors({ general: data.error || "Ocurrió un error. Intentá de nuevo." });
         return;
@@ -200,6 +231,9 @@ export default function RSVPForm({ onSuccess }: { onSuccess?: (count: number) =>
       setLoading(false);
     }
   };
+
+  // ── Render: cupo se completó durante el envío ─────────────────────────────
+  if (justFilled) return <JustFilledScreen />;
 
   // ── Render: pantalla de éxito ─────────────────────────────────────────────
   if (success) return <SuccessScreen nombre={confirmedName} />;

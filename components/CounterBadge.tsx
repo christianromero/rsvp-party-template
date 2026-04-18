@@ -1,56 +1,76 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { CapacityState } from "@/lib/event-config";
 
 interface CounterBadgeProps {
-  initialCount: number;
+  count: number;
+  state: CapacityState;
+  bumping?: boolean;
 }
 
-export default function CounterBadge({ initialCount }: CounterBadgeProps) {
-  const [count, setCount] = useState(initialCount);
-  const [animating, setAnimating] = useState(false);
-  const prevCountRef = useRef(initialCount);
+/**
+ * Badge de "en vivo" que muestra el estado del cupo.
+ *
+ * 3 estados posibles:
+ * - "available":  verde/azul — "Ya hay N confirmaciones"
+ * - "last-spots": dorado con pulso — "¡Últimas entradas! Corré"
+ * - "full":       naranja/gradient — "¡Cupos completos! Gracias"
+ *
+ * El número exacto de capacidad NO se muestra nunca (a pedido del organizador).
+ */
+export default function CounterBadge({ count, state, bumping = false }: CounterBadgeProps) {
+  // ── Estado: cupo completo ─────────────────────────────────────────────────
+  if (state === "full") {
+    return (
+      <div
+        className="inline-flex items-center gap-3 px-5 py-3 rounded-full glass-card-orange glow-orange
+                   transition-all duration-300"
+      >
+        <span className="text-xl" aria-hidden>🎉</span>
+        <span className="font-fredoka text-lg md:text-xl">
+          <span className="gradient-text font-fredoka text-xl md:text-2xl">
+            ¡Cupos completos!
+          </span>
+          <span className="ml-2 text-white/85">Gracias por sumarse</span>
+        </span>
+      </div>
+    );
+  }
 
-  // Polling cada 30 segundos para actualizar el contador en tiempo real
-  useEffect(() => {
-    const fetchCount = async () => {
-      try {
-        const res = await fetch("/api/count", { cache: "no-store" });
-        if (!res.ok) return;
-        const data = await res.json();
-        const newCount = typeof data.count === "number" ? data.count : count;
+  // ── Estado: últimas entradas ──────────────────────────────────────────────
+  if (state === "last-spots") {
+    return (
+      <div
+        className={`inline-flex items-center gap-3 px-5 py-3 rounded-full glass-card-orange glow-gold
+                    transition-all duration-300 ${bumping ? "animate-count-bounce" : ""}`}
+      >
+        {/* Punto pulsante naranja/dorado para urgencia */}
+        <span className="relative flex h-3 w-3" aria-hidden>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gp-orange opacity-75" />
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-gp-orange" />
+        </span>
+        <span className="font-fredoka text-lg md:text-xl">
+          <span className="gradient-text-gold font-fredoka text-xl md:text-2xl">
+            ¡Últimas entradas!
+          </span>
+          <span className="ml-2 text-white/85">No te quedes afuera</span>{" "}
+          <span aria-hidden>⚡</span>
+        </span>
+      </div>
+    );
+  }
 
-        if (newCount !== prevCountRef.current) {
-          prevCountRef.current = newCount;
-          setCount(newCount);
-          // Animación de rebote cuando cambia el número
-          setAnimating(true);
-          setTimeout(() => setAnimating(false), 500);
-        }
-      } catch {
-        // Silencioso — si falla el fetch, mantenemos el número anterior
-      }
-    };
-
-    // Primera carga al montar
-    fetchCount();
-
-    // Polling cada 30 segundos
-    const interval = setInterval(fetchCount, 30_000);
-    return () => clearInterval(interval);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Texto con manejo correcto de singular/plural
+  // ── Estado: disponible (comportamiento original) ──────────────────────────
   const confirmacionesText =
     count === 1 ? "¡1 confirmación!" : `¡${count} confirmaciones!`;
 
   return (
     <div
       className={`inline-flex items-center gap-3 px-5 py-3 rounded-full glass-card glow-blue
-                  transition-all duration-300 ${animating ? "animate-count-bounce" : ""}`}
+                  transition-all duration-300 ${bumping ? "animate-count-bounce" : ""}`}
     >
       {/* Indicador de "en vivo" */}
-      <span className="relative flex h-3 w-3">
+      <span className="relative flex h-3 w-3" aria-hidden>
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gp-green opacity-75" />
         <span className="relative inline-flex rounded-full h-3 w-3 bg-gp-green" />
       </span>
@@ -58,17 +78,15 @@ export default function CounterBadge({ initialCount }: CounterBadgeProps) {
       <span className="font-fredoka text-lg md:text-xl text-white">
         {count === 0 ? (
           <>
-            <span className="text-gp-text-dim">¡Sé la primer persona en confirmar!</span>
-            {" "}
-            <span>👀</span>
+            <span className="text-gp-text-dim">¡Sé la primer persona en confirmar!</span>{" "}
+            <span aria-hidden>👀</span>
           </>
         ) : (
           <>
             <span className="gradient-text-gold font-fredoka text-xl md:text-2xl">
               Ya hay {confirmacionesText}
-            </span>
-            {" "}
-            <span>🎉</span>
+            </span>{" "}
+            <span aria-hidden>🎉</span>
           </>
         )}
       </span>

@@ -48,7 +48,34 @@ export const EVENT_CONFIG = {
   // ── Ruta a la imagen de la tarjeta de invitación ──────────────────────────
   // Poner la imagen en public/assets/ y actualizar esta variable
   invitationImage: process.env.NEXT_PUBLIC_INVITATION_IMAGE ?? "/assets/invitation-card.jpg",
+
+  // ── Tope de capacidad del evento ──────────────────────────────────────────
+  // Cuando la cantidad de confirmados iguala o supera este número, la landing
+  // cierra el formulario y muestra el mensaje de cupo completo.
+  // Se puede sobrescribir con NEXT_PUBLIC_EVENT_CAPACITY (ej. "20").
+  capacity: Number.parseInt(process.env.NEXT_PUBLIC_EVENT_CAPACITY ?? "20", 10) || 20,
+
+  // ── Umbral para activar el estado "últimas entradas" ──────────────────────
+  // Si `capacity - count <= lastSpotsThreshold`, la landing entra en modo urgencia
+  // (contador con glow dorado, copy distinto). Default: 5.
+  lastSpotsThreshold: Number.parseInt(process.env.NEXT_PUBLIC_EVENT_LAST_SPOTS_THRESHOLD ?? "5", 10) || 5,
 } as const;
+
+// ── Estados de capacidad ──────────────────────────────────────────────────────
+export type CapacityState = "available" | "last-spots" | "full";
+
+/**
+ * Devuelve el estado actual del cupo en función de la cantidad de confirmados.
+ * - "full":       count >= capacity   → cerrar formulario
+ * - "last-spots": quedan <= umbral    → mostrar urgencia
+ * - "available":  hay aire            → contador normal
+ */
+export function getCapacityState(count: number): CapacityState {
+  const { capacity, lastSpotsThreshold } = EVENT_CONFIG;
+  if (count >= capacity) return "full";
+  if (capacity - count <= lastSpotsThreshold) return "last-spots";
+  return "available";
+}
 
 // ── Helpers derivados ─────────────────────────────────────────────────────────
 
